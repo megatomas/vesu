@@ -1,186 +1,307 @@
 <!DOCTYPE html>
-
 <html>
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Форма ввода</title>
 <link href="styles.css" rel="stylesheet" type="text/css"/>
 <style>
     .error {
       border: 2px solid red;
     }
   </style>
-<!-- Подключение стилей flatpickr -->
+<!-- Include flatpickr CSS -->
 <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet"/>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet"/><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script></head>
+</head>
 <body>
 <form data-content-type="web_app_data" enctype="multipart/form-data">
-<div><label for="regNumber">Рег. номер</label><input id="regNumber" name="regNumber" placeholder="Введите рег. номер..." type="text"/></div>
-<div style="margin: 10px 0;">
-<label>Источник подсказок:</label>
-<div class="switch-labels">
-<span class="switch-label">Все весы</span>
-<label class="switch">
-<input id="dataToggle" type="checkbox"/>
-<span class="slider round"></span>
-</label>
-<span class="switch-label">Лабораторные</span>
-</div>
-<label><span id="toggleLabel">non_laboratory_data.json</span></label>
-</div>
 <div>
-<label for="client">Клиент</label>
-<input id="client" name="client" placeholder="Клиент" type="text"/>
-</div>
-<div>
-<label for="model">Модель</label>
-<input id="model" name="model" placeholder="Модель" type="text"/>
-</div>
-<div>
-    <label for="suitability">Пригодность</label>
-    <select id="suitability" name="suitability">
-    <option value="пригодный" selected>пригодный</option>
-    <option value="не пригодный">не пригодный</option>
+<label for="city">Город</label>
+<select id="city" name="city">
+<option selected=""></option>
 </select>
 </div>
 <div>
-<label for="Modification">Модификация</label>
-<input id="Modification" name="Modification" placeholder="Модификация" type="text"/>
-</div>
-  <label for="year_of_release">Год Выпуска</label>
-<input id="year_of_release" name="year_of_release" placeholder="Год Выпуска" type="text"/>
+<label for="district">Район</label>
+<select id="district" name="district">
+<option selected="" value="ЦАО"></option>
+</select>
 </div>
 <div>
-<label for="npv">НПВ</label>
-<select id="npv" name="npv">
-<option disabled="" selected="" value="">Выберите НПВ</option>
-<option value="1">1</option><option value="2.5">2.5</option><option value="3">3</option><option value="4.7">4.7</option></select>
+<label for="street">Улица</label>
+<input id="street" name="street" placeholder="Улица" type="text"/>
+</div>
+<div>
+<label for="house">Дом</label>
+<input id="house" name="house" placeholder="Дом" type="text"/>
+</div>
+<div>
+<label for="building">Корпус</label>
+<input id="building" name="building" placeholder="Корпус" type="text"/>
+</div>
+<div>
+<label for="apartment">Квартира</label>
+<input id="apartment" name="apartment" placeholder="Квартира" type="text"/>
+</div>
+<div>
+<label for="entrance">Подъезд</label>
+<input id="entrance" name="entrance" placeholder="Подъезд" type="text"/>
+</div>
+<div>
+<label for="floor">Этаж</label>
+<input id="floor" name="floor" placeholder="Этаж" type="text"/>
+</div>
+<div>
+<label for="intercomCode">Код домофона</label>
+<input id="intercomCode" name="intercomCode" placeholder="Код домофона" type="text"/>
+</div>
+<div>
+<label for="hvsQuantity">Количество ХВС</label>
+<select id="hvsQuantity" name="hvsQuantity">
+<option value="0">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+</div>
+<div>
+<label for="gvsQuantity">Количество ГВС</label>
+<select id="gvsQuantity" name="gvsQuantity">
+<option value="0">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+</select>
+</div>
+<div>
+<label for="totalAmount">Сумма</label>
+<input id="totalAmount" name="totalAmount" placeholder="Сумма" type="text"/>
+</div>
+<div>
+<label for="phone">Телефон</label>
+<input id="phone" inputmode="numeric" name="phone" placeholder="Телефон" type="text" value="+7"/>
+</div>
+<div>
+<input id="copyPhoneCheckbox" name="copyPhoneCheckbox" type="checkbox"/>
+<label for="copyPhoneCheckbox">Телефоны совпадают</label>
+</div>
+<div>
+<label for="contactNumber">Номер телефона звонящего</label>
+<input id="contactNumber" inputmode="numeric" name="contactNumber" placeholder="Номер телефона звонящего" type="text" value="+7"/>
+</div>
+<div>
+<label for="workDate">Дата проведения работ</label>
+<input id="workDate" name="workDate" placeholder="Дата проведения работ" readonly="" type="text"/>
+</div>
+<div>
+<label for="workInterval">Временной интервал работ</label>
+<select id="workInterval" name="workInterval">
+<option value="8:00 - 13:00">8:00 - 13:00</option>
+<option value="13:00 - 18:00">13:00 - 18:00</option>
+</select>
+</div>
+<div>
+<label for="notes">Примечания</label>
+<textarea id="notes" name="notes" placeholder="Примечания"></textarea>
 </div>
 <div id="error"></div>
+<input id="agreeCheckbox" type="checkbox"/><label for="agreeCheckbox"> Все поля заполнены верно!</label>
 <div class="button-group">
-<button id="submit" type="submit">Отправить</button>
+<button disabled="disabled" id="submit" type="submit">Создать заявку</button>
+<button id="checkButton" type="button">Проверить</button>
 <button id="reset" style="margin-left: 10px" type="reset">Отмена</button>
 </div>
-<div><label for="verificationDate">Дата следующей поверки</label><input id="verificationDate" name="verificationDate" type="date" value="2026-10-22"/></div></form>
-<script>
-    $(document).ready(function() {
+</form>
 
-        function updateSelect() {
-            var selectElement = $('#npv');
-            selectElement.empty();
-            var data = [];
-
-            // If the toggle is checked, use data from npv_laboratory.json, otherwise use data from npv_all.json
-            if ($('#dataToggle').prop('checked')) {
-                data = [5, 6.1];
-            } else {
-                data = [1, 2.5, 3, 4.7];
-            }
-
-            // Add the default option
-            selectElement.append('<option disabled selected value>Выберите НПВ</option>');
-
-            // Add the options from the selected data source
-            data.forEach(function(item) {
-                selectElement.append('<option value=' + item + '>' + item + '</option>');
-            });
-        }
-
-        // Handle the change event of the toggle switch
-        $('#dataToggle').on('change', updateSelect);
-
-        // Call the function on initial load
-        updateSelect();
-    });
-</script>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
-
 <script>
-    let dataSource = "non_laboratory_data.json";
-
-    document.getElementById('dataToggle').addEventListener('change', function() {
-        if (this.checked) {
-            dataSource = "laboratory_data.json";
-            document.getElementById("toggleLabel").innerText = "laboratory_data.json";
-        } else {
-            dataSource = "non_laboratory_data.json";
-            document.getElementById("toggleLabel").innerText = "non_laboratory_data.json";
-        }
-        updateSuggestions();
-    });
-
-    function updateSuggestions() {
-        fetch(dataSource)
-            .then(response => response.json())
-            .then(data => {
-                let suggestions = [];
-                for (let item of data) {
-                    let combinedString = `Наименование: ${item["Наименование"]}, Наименование типа СИ: ${item["Наименование типа СИ"]}, Изготовитель: ${item["Изготовитель"]}`;
-                    suggestions.push(combinedString);
-                }
-
-                $("#regNumber").autocomplete({
-                    source: function(request, response) {
-                        let matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-                        response(suggestions.filter(s => matcher.test(s)));
-                    }
-                });
-            });
+  let tg = window.Telegram.WebApp;
+  let submit = document.getElementById("submit");
+  let reset = document.getElementById("reset");
+  let phoneInput = document.getElementById("phone");
+  let contactNumberInput = document.getElementById("contactNumber");
+  let copyPhoneCheckbox = document.getElementById("copyPhoneCheckbox");
+  let citySelect = document.getElementById("city");
+  let districtSelect = document.getElementById("district");
+  let otherModelInput = document.getElementById("other_model");
+  copyPhoneCheckbox.addEventListener("change", function() {
+    if (copyPhoneCheckbox.checked) {
+      contactNumberInput.value = phoneInput.value;
+    } else {
+      contactNumberInput.value = "";
     }
-
-   document.addEventListener('DOMContentLoaded', function() {
-    updateSuggestions();
-
-    // Найти элемент с id "toggleLabel" и скрыть его
-    var toggleLabel = document.getElementById("toggleLabel");
-    toggleLabel.style.display = "none";
-});
-</script>
-
-<script>
-    $(document).ready(function() {
-        var verificationDate = new Date();
-        verificationDate.setFullYear(verificationDate.getFullYear() + 3);
-        verificationDate.setDate(verificationDate.getDate() + 1);
-        $('#verificationDate').val(verificationDate.toISOString().slice(0, 10));
+  });
+  function loadJSONFile(file, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.overrideMimeType('application/json');
+    xhr.open('GET', file, true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        callback(xhr.responseText);
+      }
+    };
+    xhr.send(null);
+  }
+  function loadCities() {
+    loadJSONFile('all_city.json', function (response) {
+      var cities = JSON.parse(response);
+      cities.forEach(function (city) {
+        var option = document.createElement('option');
+        option.value = city.city;
+        option.textContent = city.city;
+        citySelect.appendChild(option);
+      });
     });
-</script>
-</body>
-</html>
-
-<script>
-    let tg = window.Telegram.WebApp;
-    let submit = document.getElementById("submit");
-    let reset = document.getElementById("reset");
-
-    function loadJSONFile(file, callback) {
-      var xhr = new XMLHttpRequest();
-      xhr.overrideMimeType('application/json');
-      xhr.open('GET', file, true);
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          callback(xhr.responseText);
+  }
+  function loadDistricts() {
+    citySelect.addEventListener('change', function () {
+      var selectedCity = citySelect.value;
+      districtSelect.innerHTML = '';
+      loadJSONFile('all_city.json', function (response) {
+        var cities = JSON.parse(response);
+        var selectedCityData = cities.find(function (city) {
+          return city.city === selectedCity;
+        });
+        if (selectedCityData && selectedCityData.raion) {
+          selectedCityData.raion.forEach(function (raion) {
+            var option = document.createElement('option');
+            option.value = raion;
+            option.textContent = raion;
+            districtSelect.appendChild(option);
+          });
         }
-      };
-      xhr.send(null);
-    }
+      });
+    });
+  }
+  loadCities();
+  loadDistricts();
+  // Получение завтрашней даты
+  // let tomorrow = new Date();
+  // tomorrow.setDate(tomorrow.getDate() + 1);
+  // Получаем сегодняшнюю дату
+  let today = new Date();
+  // Configure flatpickr date picker with Russian locale
+  flatpickr("#workDate", {
+    dateFormat: "d.m.Y",
+    defaultDate: today,   // Сегодняшняя дата будет предустановлена
+    minDate: today,       // Сегодняшняя дата будет минимальной датой для выбора
 
+    // defaultDate: tomorrow,
+    // defaultDate: tomorrow, // Завтрашняя дата будет предустановлена
+    // minDate: tomorrow,   //Раскоментить если надо будет выбирать только завтрашнюю дату  // Завтрашняя дата будет минимальной датой для выбора
+    locale: "ru"
+  });
   submit.addEventListener("click", (event) => {
     event.preventDefault();
-    let client = document.getElementById("client");
-    let model = document.getElementById("model");
-    let Modification = document.getElementById("Modification");
-    let npvSelect = document.getElementById("npv");
+    let hvsQuantity = document.getElementById("hvsQuantity");
+    let gvsQuantity = document.getElementById("gvsQuantity");
+    let totalAmount = document.getElementById("totalAmount");
+    let phone = document.getElementById("phone");
+    let contactNumber = document.getElementById("contactNumber");
+    let city = document.getElementById("city");
+    let district = document.getElementById("district");
+    let street = document.getElementById("street");
+    let house = document.getElementById("house");
+    let building = document.getElementById("building");
+    let apartment = document.getElementById("apartment");
+    let entrance = document.getElementById("entrance");
+    let floor = document.getElementById("floor");
+    let intercomCode = document.getElementById("intercomCode");
+    let workDate = document.getElementById("workDate");
+    let workInterval = document.getElementById("workInterval");
+    let notes = document.getElementById("notes");
+    let error = document.getElementById("error");
+    error.innerText = "";
+    let invalidFields = [];
 
+    // Проверка на наличие нецифровых символов в поле номера дома
+    if (house.value.trim() === "" || /\D/.test(house.value)) {
+      house.classList.add("error");
+      invalidFields.push("Номер дома должен содержать только цифры");
+    } else {
+      house.classList.remove("error");
+    }
 
+    if (totalAmount.value.trim() === "") {
+      totalAmount.classList.add("error");
+      invalidFields.push("Сумма");
+    } else {
+      totalAmount.classList.remove("error");
+    }
+    if (phone.value.trim() === "" || !/^\+7\d{10}$/.test(phone.value)) {
+      phone.classList.add("error");
+      invalidFields.push("Телефон");
+    } else {
+      phone.classList.remove("error");
+    }
+    if (contactNumber.value.trim() === "" || !/^\+7\d{10}$/.test(contactNumber.value)) {
+      contactNumber.classList.add("error");
+      invalidFields.push("Номер телефона звонящего");
+    } else {
+      contactNumber.classList.remove("error");
+    }
+    if (city.value.trim() === "") {
+      city.classList.add("error");
+      invalidFields.push("Город");
+    } else {
+      city.classList.remove("error");
+    }
+    if (district.value.trim() === "") {
+      district.classList.add("error");
+      invalidFields.push("Район");
+    } else {
+      district.classList.remove("error");
+    }
+    if (street.value.trim() === "") {
+      street.classList.add("error");
+      invalidFields.push("Улица");
+    } else {
+      street.classList.remove("error");
+    }
+    if (house.value.trim() === "") {
+      house.classList.add("error");
+      invalidFields.push("Дом");
+    } else {
+      house.classList.remove("error");
+    }
+    if (invalidFields.length > 0) {
+      error.innerText = "Пожалуйста, правильно заполните следующие поля: " + invalidFields.join(", ");
+      return;
+    }
     let data = {
-      client: client.value,
-      model: model.value,
-      Modification: Modification.value,
-      npv: npv.value,
+      hvsQuantity: hvsQuantity.value,
+      gvsQuantity: gvsQuantity.value,
+      totalAmount: totalAmount.value,
+      phone: phone.value,
+      contactNumber: contactNumber.value,
+      city: city.value,
+      district: district.value,
+      street: street.value,
+      house: house.value,
+      building: building.value,
+      apartment: apartment.value,
+      entrance: entrance.value,
+      floor: floor.value,
+      intercomCode: intercomCode.value,
+      workDate: workDate.value,
+      workInterval: workInterval.value,
+      notes: notes.value
     };
     // Send data to Telegram
     tg.sendData(JSON.stringify(data));
@@ -192,34 +313,83 @@
     tg.close();
   });
   document.addEventListener("DOMContentLoaded", function() {
-
-document.getElementById('dataToggle').addEventListener('change', function() {
-    if (this.checked) {
-        dataSource = "npv_laboratory.json";
-        document.getElementById("toggleLabel").innerText = "laboratory_data.json";
-    } else {
-        dataSource = "npv_all.json";
-        document.getElementById("toggleLabel").innerText = "non_laboratory_data.json";
-    }
-    updateNPVOptions();
+  let inputFields = document.querySelectorAll("input, select, textarea");
+  for (let i = 0; i < inputFields.length; i++) {
+    let currentField = inputFields[i];
+    currentField.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        let nextFieldIndex = i + 1;
+        if (nextFieldIndex < inputFields.length) {
+          let nextField = inputFields[nextFieldIndex];
+          nextField.focus();
+        }
+      }
+    });
+  }
 });
-function updateNPVOptions() {
-    fetch(dataSource)
-        .then(response => response.json())
-        .then(data => {
-            // Очищаем текущие опции в выпадающем списке
-            npvSelect.innerHTML = '<option value="" disabled selected>Выберите НПВ</option>';
-
-            // Заполняем выпадающий список согласно данными из файла
-            for (let item of data) {
-                let option = document.createElement('option');
-                option.value = item.value; // Предполагается, что в файле есть поле "value"
-                option.textContent = item.label; // Предполагается, что в файле есть поле "label"
-                npvSelect.appendChild(option);
-            }
-        });
-}
-updateNPVOptions();
-
-
+document.addEventListener("DOMContentLoaded", function() {
+  let phoneInput = document.getElementById("phone");
+  let contactNumberInput = document.getElementById("contactNumber");
+  phoneInput.addEventListener("focus", function() {
+    if (phoneInput.value === "+7") {
+      setTimeout(function() {
+        phoneInput.setSelectionRange(2, 2);
+      }, 0);
+    }
+  });
+  contactNumberInput.addEventListener("focus", function() {
+    if (contactNumberInput.value === "+7") {
+      setTimeout(function() {
+        contactNumberInput.setSelectionRange(2, 2);
+      }, 0);
+    }
+  });
+});
 </script>
+<div id="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+<div style="background-color: white; padding: 20px; max-width: 500px; width: 80%;">
+<div id="modalContent"></div>
+<p>К приходу нашего специалиста подготовьте пожалуйста документы на счетчик(и) при их наличии.
+По выполнении работ специалист выдаст вам квитанцию и акт о поверке. Акт о поверке ваших счетчиков необходимо предоставить вашей управляющей компании (расчетный центр).</p>
+<button onclick="document.getElementById('modal').style.display = 'none'">Вернуться назад</button>
+</div>
+</div>
+<script>
+    document.getElementById('checkButton').addEventListener('click', function() {
+        var content = '';
+        content += 'Количество ХВС: ' + document.getElementById('hvsQuantity').value + '<br>';
+        content += 'Количество ГВС: ' + document.getElementById('gvsQuantity').value + '<br>';
+        content += 'Общая сумма: ' + document.getElementById('totalAmount').value + '<br>';
+        content += 'Телефон: ' + document.getElementById('phone').value + '<br>';
+        content += 'Номер контакта: ' + document.getElementById('contactNumber').value + '<br>';
+        content += 'Город: ' + document.getElementById('city').value + '<br>';
+        content += 'Район: ' + document.getElementById('district').value + '<br>';
+        content += 'Улица: ' + document.getElementById('street').value + '<br>';
+        content += 'Дом: ' + document.getElementById('house').value + '<br>';
+        content += 'Корпус: ' + document.getElementById('building').value + '<br>';
+        content += 'Квартира: ' + document.getElementById('apartment').value + '<br>';
+        content += 'Подъезд: ' + document.getElementById('entrance').value + '<br>';
+        content += 'Этаж: ' + document.getElementById('floor').value + '<br>';
+        content += 'Код домофона: ' + document.getElementById('intercomCode').value + '<br>';
+        content += 'Дата работы: ' + document.getElementById('workDate').value + '<br>';
+        content += 'Интервал работы: ' + document.getElementById('workInterval').value + '<br>';
+        content += 'Примечания: ' + document.getElementById('notes').value + '<br>';
+
+        document.getElementById('modalContent').innerHTML = content;
+        document.getElementById('modal').style.display = 'flex';
+    });
+</script>
+
+<script>
+    document.getElementById('agreeCheckbox').addEventListener('change', function() {
+        var btn = document.querySelector('button[disabled]');
+        if (this.checked) {
+            btn.removeAttribute('disabled');
+        } else {
+            btn.setAttribute('disabled', 'disabled');
+        }
+    });
+</script>
+</body>
+</html>
