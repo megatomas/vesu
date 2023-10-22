@@ -58,7 +58,7 @@
 </div>
 <div id="error"></div>
 <div class="button-group">
-<button disabled="disabled" id="submit" type="submit">Отправить</button>
+<button id="submit" type="submit">Отправить</button>
 <button id="reset" style="margin-left: 10px" type="reset">Отмена</button>
 </div>
 <div><label for="verificationDate">Дата следующей поверки</label><input id="verificationDate" name="verificationDate" type="date" value="2026-10-22"/></div></form>
@@ -138,30 +138,6 @@
     var toggleLabel = document.getElementById("toggleLabel");
     toggleLabel.style.display = "none";
 });
-</script>
-<script>
-    $(document).ready(function() {
-        $('#dataToggle').on('change', function() {
-            var selectElement = $('#npv');
-            selectElement.empty();
-            var data = [];
-
-            // If the toggle is checked, use data from npv_laboratory.json, otherwise use data from npv_all.json
-            if (this.checked) {
-                data = [5, 6.1];
-            } else {
-                data = [1, 2.5, 3, 4.7];
-            }
-
-            // Add the default option
-            selectElement.append('<option disabled selected value>Выберите НПВ</option>');
-
-            // Add the options from the selected data source
-            data.forEach(function(item) {
-                selectElement.append('<option value=' + item + '>' + item + '</option>');
-            });
-        });
-    });
 </script>
 
 <script>
