@@ -1,0 +1,227 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to bottom, #99c2a2, #99c2a2);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+label {
+      font-weight: bold;
+    }
+
+form {
+  flex-direction: column;
+  align-items: center;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+  background-color: #F8F8F8;
+}
+
+input[type="text"],
+textarea {
+  width: calc(100% - 20px);
+}
+
+
+#agreeCheckbox {
+  margin-bottom: 20px; /* Добавим отступ снизу */
+
+}
+
+#modal button {
+  padding: 10px;
+  margin: 0 5px 0 0;
+  border-radius: 50px;
+  border: none;
+  background-color: #5B8E7D; /* Используйте цвет кнопки отмена */
+  color: white;
+  outline: 2px solid #1a4341;
+  cursor: pointer;
+}
+
+#modalContent {
+  max-height: 250px; /* Настройте максимальную высоту по вашему желанию */
+  overflow-y: auto; /* Добавляет вертикальную полосу прокрутки при необходимости */
+}
+
+
+
+button[type="submit"],
+button[type="reset"] {
+  padding: 10px;
+  margin: 0 5px 0 0;
+  border-radius: 50px;
+  border: none;
+  background-color: #5B8E7D;
+  color: white;
+  outline: 2px solid #1a4341;
+}
+
+
+button[type="button"]
+{
+  padding: 10px;
+  margin: 0 5px 0 0;
+  border-radius: 50px;
+  border: none;
+  background-color: #ff0000;
+  color: white;
+  outline: 2px solid #1a4341;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.buttons button {
+  flex: 1;
+}
+
+#error {
+  color: red;
+  margin-top: 10px;
+}
+
+#modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#modal > div {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 400px;
+}
+
+#closeModal {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #5B8E7D;
+    color: white;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+}
+
+
+/* Добавленные стили для ползунка */
+.switch-labels {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.switch-label {
+    font-size: 14px;
+    margin: 0 10px;
+}
+/* Пример градиентного фона для ползунка */
+.switch input:checked + .slider:before {
+    background: linear-gradient(to right, #99c2a2, #66a08d);
+}
+/* Добавляем тень для ползунка */
+.switch .slider:before {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Пример тени */
+}
+/* Анимация для ползунка */
+.switch input + .slider:before {
+    transition: 0.3s ease-in-out; /* Пример анимации */
+}
+/* Скрываем стандартный ползунок */
+.switch input[type="checkbox"] {
+    display: none;
+}
+
+/* Добавляем кастомную иконку */
+.switch .slider:before {
+    content: "🌒"; /* Пример: Unicode-код иконки */
+    font-family: FontAwesome; /* Используемая шрифтовая иконочная библиотека */
+    font-size: 18px; /* Размер иконки */
+    color: #fff; /* Цвет иконки */
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 26px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+/* Цвет ползунка в левом положении */
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #00bea4;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+/* Цвет ползунка в правом положении */
+
+input:checked + .slider {
+    background-color: #00bea4;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
