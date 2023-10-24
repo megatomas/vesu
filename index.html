@@ -15,6 +15,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet"/><script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script></head>
 <body>
 <form data-content-type="web_app_data" enctype="multipart/form-data">
+
+<label for="year_of_release">Год Выпуска</label>
+<input id="year_of_release" name="year_of_release" placeholder="Год Выпуска" type="text"/>
+</div>
+
 <div><label for="regNumber">Рег. номер</label><input id="regNumber" name="regNumber" placeholder="Введите рег. номер..." type="text"/></div>
 <div style="margin: 10px 0;">
 <label>Источник подсказок:</label>
@@ -26,12 +31,13 @@
 </label>
 <span class="switch-label">Лабораторные</span>
 </div>
-<label><span id="toggleLabel">non_laboratory_data.json</span></label>
+
 </div>
 <div>
 <label for="client">Клиент</label>
 <input id="client" name="client" placeholder="Клиент" type="text"/>
 </div>
+
 
 
 <div>
@@ -55,9 +61,7 @@
 <label for="Modification">Модификация</label>
 <input id="Modification" name="Modification" placeholder="Модификация" type="text"/>
 </div>
-  <label for="year_of_release">Год Выпуска</label>
-<input id="year_of_release" name="year_of_release" placeholder="Год Выпуска" type="text"/>
-</div>
+
 <div>
 <label for="npv">НПВ</label>
 <select id="npv" name="npv">
@@ -74,6 +78,9 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
 
+
+
+
 <script>
     let dataSource = "non_laboratory_data.json";
 
@@ -88,24 +95,26 @@
         updateSuggestions();
     });
 
-    function updateSuggestions() {
-        fetch(dataSource)
-            .then(response => response.json())
-            .then(data => {
-                let suggestions = [];
-                for (let item of data) {
-                    let combinedString = `Наименование: ${item["Наименование"]}, Наименование типа СИ: ${item["Наименование типа СИ"]}, Изготовитель: ${item["Изготовитель"]}`;
-                    suggestions.push(combinedString);
-                }
+    $("#regNumber").autocomplete({
+        source: function(request, response) {
+            let yearInput = document.getElementById("year_of_release").value;
+            let lastTwoDigits = yearInput.slice(-2);
 
-                $("#regNumber").autocomplete({
-                    source: function(request, response) {
-                        let matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-                        response(suggestions.filter(s => matcher.test(s)));
+            fetch(dataSource)
+                .then(response => response.json())
+                .then(data => {
+                    let filteredData = data.filter(item => item["Наименование"].split("-").pop().startsWith(lastTwoDigits));
+                    let suggestions = [];
+                    for (let item of filteredData) {
+                        let combinedString = `Наименование: ${item["Наименование"]}, Наименование типа СИ: ${item["Наименование типа СИ"]}, Изготовитель: ${item["Изготовитель"]}`;
+                        suggestions.push(combinedString);
                     }
+
+                    let matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                    response(suggestions.filter(s => matcher.test(s)));
                 });
-            });
-    }
+        }
+    });
 
    document.addEventListener('DOMContentLoaded', function() {
     updateSuggestions();
@@ -116,15 +125,200 @@
 });
 </script>
 
+
+
+
+
+
+
 <script>
-    $(document).ready(function() {
-        var verificationDate = new Date();
-        verificationDate.setFullYear(verificationDate.getFullYear() + 3);
-        verificationDate.setDate(verificationDate.getDate() + 1);
-        $('#verificationDate').val(verificationDate.toISOString().slice(0, 10));
+    let dataSource = "non_laboratory_data.json";
+
+    document.getElementById('dataToggle').addEventListener('change', function() {
+        if (this.checked) {
+            dataSource = "laboratory_data.json";
+            document.getElementById("toggleLabel").innerText = "laboratory_data.json";
+        } else {
+            dataSource = "non_laboratory_data.json";
+            document.getElementById("toggleLabel").innerText = "non_laboratory_data.json";
+        }
+        updateSuggestions();
     });
+
+    $("#regNumber").autocomplete({
+        source: function(request, response) {
+            let yearInput = document.getElementById("year_of_release").value;
+            let lastTwoDigits = yearInput.slice(-2);
+
+            fetch(dataSource)
+                .then(response => response.json())
+                .then(data => {
+                    let filteredData = data.filter(item => item["Наименование"].split("-").pop().startsWith(lastTwoDigits));
+                    let suggestions = [];
+                    for (let item of filteredData) {
+                        let combinedString = `Наименование: ${item["Наименование"]}, Наименование типа СИ: ${item["Наименование типа СИ"]}, Изготовитель: ${item["Изготовитель"]}`;
+                        suggestions.push(combinedString);
+                    }
+
+                    let matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                    response(suggestions.filter(s => matcher.test(s)));
+                });
+        }
+    });
+
+   document.addEventListener('DOMContentLoaded', function() {
+    updateSuggestions();
+
+    // Найти элемент с id "toggleLabel" и скрыть его
+    var toggleLabel = document.getElementById("toggleLabel");
+    toggleLabel.style.display = "none";
+});
 </script>
 
+
+
+
+
+
+
+<script>
+    let dataSource = "non_laboratory_data.json";
+
+    document.getElementById('dataToggle').addEventListener('change', function() {
+        if (this.checked) {
+            dataSource = "laboratory_data.json";
+            document.getElementById("toggleLabel").innerText = "laboratory_data.json";
+        } else {
+            dataSource = "non_laboratory_data.json";
+            document.getElementById("toggleLabel").innerText = "non_laboratory_data.json";
+        }
+        updateSuggestions();
+    });
+
+    $("#regNumber").autocomplete({
+        source: function(request, response) {
+            let yearInput = document.getElementById("year_of_release").value;
+            let lastTwoDigits = yearInput.slice(-2);
+
+            fetch(dataSource)
+                .then(response => response.json())
+                .then(data => {
+                    let filteredData = data.filter(item => item["Наименование"].split("-").pop().startsWith(lastTwoDigits));
+                    let suggestions = [];
+                    for (let item of filteredData) {
+                        let combinedString = `Наименование: ${item["Наименование"]}, Наименование типа СИ: ${item["Наименование типа СИ"]}, Изготовитель: ${item["Изготовитель"]}`;
+                        suggestions.push(combinedString);
+                    }
+
+                    let matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                    response(suggestions.filter(s => matcher.test(s)));
+                });
+        }
+    });
+
+   document.addEventListener('DOMContentLoaded', function() {
+    updateSuggestions();
+
+    // Найти элемент с id "toggleLabel" и скрыть его
+    var toggleLabel = document.getElementById("toggleLabel");
+    toggleLabel.style.display = "none";
+});
+</script>
+
+
+
+<script>
+    let dataSource = "non_laboratory_data.json";
+
+    document.getElementById('dataToggle').addEventListener('change', function() {
+        if (this.checked) {
+            dataSource = "laboratory_data.json";
+            document.getElementById("toggleLabel").innerText = "laboratory_data.json";
+        } else {
+            dataSource = "non_laboratory_data.json";
+            document.getElementById("toggleLabel").innerText = "non_laboratory_data.json";
+        }
+        updateSuggestions();
+    });
+
+    $("#regNumber").autocomplete({
+        source: function(request, response) {
+            let yearInput = document.getElementById("year_of_release").value;
+            let lastTwoDigits = yearInput.slice(-2);
+
+            fetch(dataSource)
+                .then(response => response.json())
+                .then(data => {
+                    let filteredData = data.filter(item => item["Наименование"].split("-").pop().startsWith(lastTwoDigits));
+                    let suggestions = [];
+                    for (let item of filteredData) {
+                        let combinedString = `Наименование: ${item["Наименование"]}, Наименование типа СИ: ${item["Наименование типа СИ"]}, Изготовитель: ${item["Изготовитель"]}`;
+                        suggestions.push(combinedString);
+                    }
+
+                    let matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                    response(suggestions.filter(s => matcher.test(s)));
+                });
+        }
+    });
+
+   document.addEventListener('DOMContentLoaded', function() {
+    updateSuggestions();
+
+    // Найти элемент с id "toggleLabel" и скрыть его
+    var toggleLabel = document.getElementById("toggleLabel");
+    toggleLabel.style.display = "none";
+});
+</script>
+
+
+
+
+
+
+<script>
+    let dataSource = "non_laboratory_data.json";
+
+    document.getElementById('dataToggle').addEventListener('change', function() {
+        if (this.checked) {
+            dataSource = "laboratory_data.json";
+            document.getElementById("toggleLabel").innerText = "laboratory_data.json";
+        } else {
+            dataSource = "non_laboratory_data.json";
+            document.getElementById("toggleLabel").innerText = "non_laboratory_data.json";
+        }
+        updateSuggestions();
+    });
+
+    $("#regNumber").autocomplete({
+        source: function(request, response) {
+            let yearInput = document.getElementById("year_of_release").value;
+            let lastTwoDigits = yearInput.slice(-2);
+
+            fetch(dataSource)
+                .then(response => response.json())
+                .then(data => {
+                    let filteredData = data.filter(item => item["Наименование"].split("-").pop().startsWith(lastTwoDigits));
+                    let suggestions = [];
+                    for (let item of filteredData) {
+                        let combinedString = `Наименование: ${item["Наименование"]}, Наименование типа СИ: ${item["Наименование типа СИ"]}, Изготовитель: ${item["Изготовитель"]}`;
+                        suggestions.push(combinedString);
+                    }
+
+                    let matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                    response(suggestions.filter(s => matcher.test(s)));
+                });
+        }
+    });
+
+   document.addEventListener('DOMContentLoaded', function() {
+    updateSuggestions();
+
+    // Найти элемент с id "toggleLabel" и скрыть его
+    var toggleLabel = document.getElementById("toggleLabel");
+    toggleLabel.style.display = "none";
+});
+</script>
 <script>
 $(document).ready(function() {
     // Preloaded data from JSON files
@@ -155,8 +349,22 @@ $(document).ready(function() {
     updateDropdown(npvAllData);
 });
 </script>
-</body>
-</html>
+
+<script>
+    document.getElementById('regNumber').addEventListener('change', function() {{
+        var selectedValue = this.value.trim();
+
+        // Since the selected value contains multiple details separated by commas, we'll extract the relevant parts
+        var details = selectedValue.split(',');
+        if (details.length > 1) {{
+            // Extract the model name without the key
+            var modelName = details[1].replace('Наименование типа СИ:', '').trim();
+            document.getElementById('model').value = modelName;
+        }}
+    }});
+</script>
+
+
 
 <script>
     let tg = window.Telegram.WebApp;
@@ -214,16 +422,6 @@ $(document).ready(function() {
     tg.close();
   });
 </script>
-<script>
-    document.getElementById('regNumber').addEventListener('change', function() {{
-        var selectedValue = this.value.trim();
 
-        // Since the selected value contains multiple details separated by commas, we'll extract the relevant parts
-        var details = selectedValue.split(',');
-        if (details.length > 1) {{
-            // Extract the model name without the key
-            var modelName = details[1].replace('Наименование типа СИ:', '').trim();
-            document.getElementById('model').value = modelName;
-        }}
-    }});
-</script>
+</body>
+</html>
