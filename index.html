@@ -78,9 +78,6 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ru.js"></script>
 
-
-
-
 <script>
     let dataSource = "non_laboratory_data.json";
 
@@ -96,25 +93,38 @@
     });
 
     $("#regNumber").autocomplete({
-        source: function(request, response) {
-            let yearInput = document.getElementById("year_of_release").value;
-            let lastTwoDigits = yearInput.slice(-2);
+    source: function(request, response) {
+        let yearInput = document.getElementById("year_of_release").value;
+        let lastTwoDigits = yearInput.slice(-2);
 
-            fetch(dataSource)
-                .then(response => response.json())
-                .then(data => {
-                    let filteredData = data.filter(item => item["Наименование"].split("-").pop().startsWith(lastTwoDigits));
-                    let suggestions = [];
-                    for (let item of filteredData) {
-                        let combinedString = `Наименование: ${item["Наименование"]}, Наименование типа СИ: ${item["Наименование типа СИ"]}, Изготовитель: ${item["Изготовитель"]}`;
+        fetch(dataSource)
+            .then(response => response.json())
+            .then(data => {
+                let filteredData = data.filter(item => item["Наименование"].split("-").pop().startsWith(lastTwoDigits));
+                let suggestions = [];
+
+                // Создаем массив регулярных выражений для каждого слова из запроса пользователя, исключая короткие слова
+                let regexes = request.term.split(' ').filter(word => word.length > 1).map(word => new RegExp(escapeRegExp(word), "i"));
+
+                for (let item of filteredData) {
+                    let combinedString = `Наименование: ${item["Наименование"]}, Наименование типа СИ: ${item["Наименование типа СИ"]}, Изготовитель: ${item["Изготовитель"]}`;
+                    if (regexes.every(regex => regex.test(combinedString))) {
                         suggestions.push(combinedString);
                     }
+                }
 
-                    let matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-                    response(suggestions.filter(s => matcher.test(s)));
-                });
-        }
-    });
+                response(suggestions);
+            });
+    }
+});
+
+// Функция для экранирования специальных символов в регулярных выражениях
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+
+
 
    document.addEventListener('DOMContentLoaded', function() {
     updateSuggestions();
@@ -126,199 +136,6 @@
 </script>
 
 
-
-
-
-
-
-<script>
-    let dataSource = "non_laboratory_data.json";
-
-    document.getElementById('dataToggle').addEventListener('change', function() {
-        if (this.checked) {
-            dataSource = "laboratory_data.json";
-            document.getElementById("toggleLabel").innerText = "laboratory_data.json";
-        } else {
-            dataSource = "non_laboratory_data.json";
-            document.getElementById("toggleLabel").innerText = "non_laboratory_data.json";
-        }
-        updateSuggestions();
-    });
-
-    $("#regNumber").autocomplete({
-        source: function(request, response) {
-            let yearInput = document.getElementById("year_of_release").value;
-            let lastTwoDigits = yearInput.slice(-2);
-
-            fetch(dataSource)
-                .then(response => response.json())
-                .then(data => {
-                    let filteredData = data.filter(item => item["Наименование"].split("-").pop().startsWith(lastTwoDigits));
-                    let suggestions = [];
-                    for (let item of filteredData) {
-                        let combinedString = `Наименование: ${item["Наименование"]}, Наименование типа СИ: ${item["Наименование типа СИ"]}, Изготовитель: ${item["Изготовитель"]}`;
-                        suggestions.push(combinedString);
-                    }
-
-                    let matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-                    response(suggestions.filter(s => matcher.test(s)));
-                });
-        }
-    });
-
-   document.addEventListener('DOMContentLoaded', function() {
-    updateSuggestions();
-
-    // Найти элемент с id "toggleLabel" и скрыть его
-    var toggleLabel = document.getElementById("toggleLabel");
-    toggleLabel.style.display = "none";
-});
-</script>
-
-
-
-
-
-
-
-<script>
-    let dataSource = "non_laboratory_data.json";
-
-    document.getElementById('dataToggle').addEventListener('change', function() {
-        if (this.checked) {
-            dataSource = "laboratory_data.json";
-            document.getElementById("toggleLabel").innerText = "laboratory_data.json";
-        } else {
-            dataSource = "non_laboratory_data.json";
-            document.getElementById("toggleLabel").innerText = "non_laboratory_data.json";
-        }
-        updateSuggestions();
-    });
-
-    $("#regNumber").autocomplete({
-        source: function(request, response) {
-            let yearInput = document.getElementById("year_of_release").value;
-            let lastTwoDigits = yearInput.slice(-2);
-
-            fetch(dataSource)
-                .then(response => response.json())
-                .then(data => {
-                    let filteredData = data.filter(item => item["Наименование"].split("-").pop().startsWith(lastTwoDigits));
-                    let suggestions = [];
-                    for (let item of filteredData) {
-                        let combinedString = `Наименование: ${item["Наименование"]}, Наименование типа СИ: ${item["Наименование типа СИ"]}, Изготовитель: ${item["Изготовитель"]}`;
-                        suggestions.push(combinedString);
-                    }
-
-                    let matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-                    response(suggestions.filter(s => matcher.test(s)));
-                });
-        }
-    });
-
-   document.addEventListener('DOMContentLoaded', function() {
-    updateSuggestions();
-
-    // Найти элемент с id "toggleLabel" и скрыть его
-    var toggleLabel = document.getElementById("toggleLabel");
-    toggleLabel.style.display = "none";
-});
-</script>
-
-
-
-<script>
-    let dataSource = "non_laboratory_data.json";
-
-    document.getElementById('dataToggle').addEventListener('change', function() {
-        if (this.checked) {
-            dataSource = "laboratory_data.json";
-            document.getElementById("toggleLabel").innerText = "laboratory_data.json";
-        } else {
-            dataSource = "non_laboratory_data.json";
-            document.getElementById("toggleLabel").innerText = "non_laboratory_data.json";
-        }
-        updateSuggestions();
-    });
-
-    $("#regNumber").autocomplete({
-        source: function(request, response) {
-            let yearInput = document.getElementById("year_of_release").value;
-            let lastTwoDigits = yearInput.slice(-2);
-
-            fetch(dataSource)
-                .then(response => response.json())
-                .then(data => {
-                    let filteredData = data.filter(item => item["Наименование"].split("-").pop().startsWith(lastTwoDigits));
-                    let suggestions = [];
-                    for (let item of filteredData) {
-                        let combinedString = `Наименование: ${item["Наименование"]}, Наименование типа СИ: ${item["Наименование типа СИ"]}, Изготовитель: ${item["Изготовитель"]}`;
-                        suggestions.push(combinedString);
-                    }
-
-                    let matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-                    response(suggestions.filter(s => matcher.test(s)));
-                });
-        }
-    });
-
-   document.addEventListener('DOMContentLoaded', function() {
-    updateSuggestions();
-
-    // Найти элемент с id "toggleLabel" и скрыть его
-    var toggleLabel = document.getElementById("toggleLabel");
-    toggleLabel.style.display = "none";
-});
-</script>
-
-
-
-
-
-
-<script>
-    let dataSource = "non_laboratory_data.json";
-
-    document.getElementById('dataToggle').addEventListener('change', function() {
-        if (this.checked) {
-            dataSource = "laboratory_data.json";
-            document.getElementById("toggleLabel").innerText = "laboratory_data.json";
-        } else {
-            dataSource = "non_laboratory_data.json";
-            document.getElementById("toggleLabel").innerText = "non_laboratory_data.json";
-        }
-        updateSuggestions();
-    });
-
-    $("#regNumber").autocomplete({
-        source: function(request, response) {
-            let yearInput = document.getElementById("year_of_release").value;
-            let lastTwoDigits = yearInput.slice(-2);
-
-            fetch(dataSource)
-                .then(response => response.json())
-                .then(data => {
-                    let filteredData = data.filter(item => item["Наименование"].split("-").pop().startsWith(lastTwoDigits));
-                    let suggestions = [];
-                    for (let item of filteredData) {
-                        let combinedString = `Наименование: ${item["Наименование"]}, Наименование типа СИ: ${item["Наименование типа СИ"]}, Изготовитель: ${item["Изготовитель"]}`;
-                        suggestions.push(combinedString);
-                    }
-
-                    let matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-                    response(suggestions.filter(s => matcher.test(s)));
-                });
-        }
-    });
-
-   document.addEventListener('DOMContentLoaded', function() {
-    updateSuggestions();
-
-    // Найти элемент с id "toggleLabel" и скрыть его
-    var toggleLabel = document.getElementById("toggleLabel");
-    toggleLabel.style.display = "none";
-});
-</script>
 <script>
 $(document).ready(function() {
     // Preloaded data from JSON files
