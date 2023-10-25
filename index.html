@@ -92,18 +92,48 @@
         updateSuggestions();
     });
 
-    $("#regNumber").autocomplete({
+
+ function interpretYear(nameString) {
+    const match = nameString.match(/(\d+)(?!.*\d)/);  // Find the last sequence of digits in the string
+    if (match) {
+        let yearString = match[1];
+        if (yearString.length === 4) {
+            return parseInt(yearString, 10);
+        } else if (yearString.length === 2) {
+            let twoDigitYear = parseInt(yearString, 10);
+            if (twoDigitYear >= 0 && twoDigitYear <= 39) {
+                return 2000 + twoDigitYear;
+            } else if (twoDigitYear >= 40 && twoDigitYear <= 99) {
+                return 1900 + twoDigitYear;
+            }
+        }
+    }
+    return null;
+}
+
+
+function filterByYear(data, specifiedYear) {
+    console.log("Specified year:", specifiedYear);
+    return data.filter(item => {
+        let itemName = item["Наименование"];
+        let itemYear = interpretYear(itemName.split("-").pop());
+        console.log(`Item: ${itemName}, Interpreted Year: ${itemYear}`);
+        return itemYear && itemYear <= specifiedYear;
+    });
+}
+
+$("#regNumber").autocomplete({
     source: function(request, response) {
         let yearInput = document.getElementById("year_of_release").value;
-        let lastTwoDigits = yearInput.slice(-2);
+        let specifiedYear = yearInput ? parseInt(yearInput, 10) : Infinity;
 
         fetch(dataSource)
             .then(response => response.json())
             .then(data => {
-                let filteredData = data.filter(item => item["Наименование"].split("-").pop().startsWith(lastTwoDigits));
+                let filteredData = filterByYear(data, specifiedYear);
+                console.log("Filtered Data Count:", filteredData.length);
                 let suggestions = [];
 
-                // Создаем массив регулярных выражений для каждого слова из запроса пользователя, исключая короткие слова
                 let regexes = request.term.split(' ').filter(word => word.length > 1).map(word => new RegExp(escapeRegExp(word), "i"));
 
                 for (let item of filteredData) {
@@ -118,10 +148,23 @@
     }
 });
 
-// Функция для экранирования специальных символов в регулярных выражениях
 function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
