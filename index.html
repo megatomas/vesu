@@ -67,7 +67,7 @@
 <select id="npv" name="npv">
 <option disabled="" selected="" value="">Выберите НПВ</option></select>
 </div>
-<div id="error"></div>
+<div id="formErrors" class="form-errors"></div>
 <div class="button-group">
 <button id="submit" type="submit">Отправить</button>
 <button id="reset" style="margin-left: 10px" type="reset">Отмена</button>
@@ -178,6 +178,16 @@ function escapeRegExp(string) {
 });
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            if (!validateForm()) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
 
 <script>
 $(document).ready(function() {
@@ -245,7 +255,9 @@ $(document).ready(function() {
 
   submit.addEventListener("click", (event) => {
     event.preventDefault();
-
+    if (!validateForm()) {
+            return; // Прервать выполнение функции, если проверка не пройдена
+        }
     // Получить значения со всех полей
     let regNumber = document.getElementById("regNumber").value;
     let client = document.getElementById("client").value;
@@ -283,5 +295,63 @@ $(document).ready(function() {
   });
 </script>
 
+
+<script>
+    function validateForm() {
+    var fields = [
+<!--        {id: 'year_of_release', name: 'Год Выпуска'},-->
+        {id: 'regNumber', name: 'Рег. номер'},
+        {id: 'client', name: 'Клиент'},
+        {id: 'model', name: 'Модель'},
+        {id: 'factoryNumber', name: 'Заводской номер'},
+        {id: 'Modification', name: 'Модификация'}
+    ];
+    var missingFields = [];
+
+    fields.forEach(function(field) {
+        var value = document.getElementById(field.id).value;
+        if (!value) {
+            missingFields.push(field.name);
+            document.getElementById(field.id).classList.add('error');
+        } else {
+            document.getElementById(field.id).classList.remove('error');
+        }
+    });
+
+    var errorDiv = document.getElementById('formErrors');
+    if (missingFields.length > 0) {
+        errorDiv.innerHTML = 'Пожалуйста, заполните следующие поля: ' + missingFields.join(', ');
+        errorDiv.style.display = 'block'; // Показать блок с ошибками
+        return false;
+    } else {
+        errorDiv.style.display = 'none'; // Скрыть блок с ошибками
+    }
+    return true;
+}
+
+
+
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Функция для установки даты следующей поверки
+    function setNextVerificationDate() {
+        var currentDate = new Date();
+        var nextYear = currentDate.getFullYear() + 1;
+        var nextVerificationDate = new Date(nextYear, currentDate.getMonth(), currentDate.getDate() - 1);
+
+        // Форматирование даты для поля ввода
+        var formattedDate = nextVerificationDate.toISOString().split('T')[0];
+
+        // Установка даты в поле ввода
+        document.getElementById('verificationDate').value = formattedDate;
+    }
+
+    // Вызов функции при загрузке страницы
+    setNextVerificationDate();
+});
+</script>
 </body>
 </html>

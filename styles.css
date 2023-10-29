@@ -94,9 +94,10 @@ button[type="button"]
   flex: 1;
 }
 
-#error {
-  color: red;
-  margin-top: 10px;
+.form-errors {
+    color: red;
+    margin: 10px 0;
+    display: none; /* Скрыть по умолчанию */
 }
 
 #modal {
