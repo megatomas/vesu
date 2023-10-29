@@ -221,17 +221,22 @@ $(document).ready(function() {
 </script>
 
 <script>
-    document.getElementById('regNumber').addEventListener('change', function() {{
-        var selectedValue = this.value.trim();
+    document.getElementById('regNumber').addEventListener('change', function() {
+    var selectedValue = this.value.trim();
 
-        // Since the selected value contains multiple details separated by commas, we'll extract the relevant parts
-        var details = selectedValue.split(',');
-        if (details.length > 1) {{
-            // Extract the model name without the key
-            var modelName = details[1].replace('Наименование типа СИ:', '').trim();
-            document.getElementById('model').value = modelName;
-        }}
-    }});
+    // Split the string using 'Наименование типа СИ:' as a delimiter
+    var details = selectedValue.split('Наименование типа СИ:');
+    if (details.length > 1) {
+        // Extract the model name(s) and remove any additional details after 'Изготовитель'
+        var modelDetails = details[1].split('Изготовитель:')[0].trim();
+
+        // Remove any trailing comma at the end of the string
+        modelDetails = modelDetails.replace(/,\s*$/, "");
+
+        document.getElementById('model').value = modelDetails;
+    }
+});
+
 </script>
 
 
