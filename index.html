@@ -340,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function setNextVerificationDate() {
         var currentDate = new Date();
         var nextYear = currentDate.getFullYear() + 1;
-        var nextVerificationDate = new Date(nextYear, currentDate.getMonth(), currentDate.getDate() - 0);
+        var nextVerificationDate = new Date(nextYear, currentDate.getMonth(), currentDate.getDate() - 1);
 
         // Форматирование даты для поля ввода
         var formattedDate = nextVerificationDate.toISOString().split('T')[0];
