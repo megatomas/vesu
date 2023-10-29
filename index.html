@@ -339,11 +339,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Функция для установки даты следующей поверки
     function setNextVerificationDate() {
         var currentDate = new Date();
-        var nextYear = currentDate.getFullYear() + 1;
-        var nextVerificationDate = new Date(nextYear, currentDate.getMonth(), currentDate.getDate() - 1);
+
+        // Вычитаем 1 день из текущей даты
+        currentDate.setDate(currentDate.getDate() - 1);
 
         // Форматирование даты для поля ввода
-        var formattedDate = nextVerificationDate.toISOString().split('T')[0];
+        var formattedDate = currentDate.toISOString().split('T')[0];
 
         // Установка даты в поле ввода
         document.getElementById('verificationDate').value = formattedDate;
@@ -352,6 +353,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Вызов функции при загрузке страницы
     setNextVerificationDate();
 });
+
+
+
+
+
 </script>
 </body>
 </html>
